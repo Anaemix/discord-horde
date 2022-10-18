@@ -110,6 +110,8 @@ class discord_horde_request:
         await self.context.send(f"{self.context.author.name}'s image done in {round(self.time_elapsed)}s! with seed {self.payload['params']['seed']}" , file = file)
         os.remove(self.filepath)
 
+
+
 @bot.command()
 async def status(ctx):
     status_user = requests.get(url+"v2/find_user", headers = {"apikey": settings["apikey"]}).json()
@@ -124,6 +126,10 @@ async def create(ctx, *arg):
     task = asyncio.create_task(obj.generate())
     await task
     
+@bot.command()
+async def reboot(ctx):
+    await ctx.send("Restarting bot... ")
+    os.system("sudo shutdown -r now")
 
 if __name__ == "__main__":
     bot.run(settings["discord"])
