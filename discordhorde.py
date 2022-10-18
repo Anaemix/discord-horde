@@ -3,8 +3,8 @@ from discord.ext import commands
 import asyncio
 import requests
 import base64
-import asyncio
 import time
+import os
 import json
 
 from parsecommand import parsecommand
@@ -34,6 +34,7 @@ default_payload = {
 
 class discord_horde_request:
     ETA = "N/A"
+    Queue = 0
     def __init__(self, context, promptlist):
         self.context = context
         self.promptlist = promptlist
@@ -67,15 +68,22 @@ class discord_horde_request:
 
     #Updates message
     async def update_message(self):
-        await self.message.edit(content=f"Generating Image... <ETA: {self.ETA+1}>")
+        if(self.Queue>0):
+            await self.message.edit(content=f"Generating Image... <In queueposition: {self.Queue}>")
+        else:
+            await self.message.edit(content=f"Generating Image... <ETA: {self.ETA+1}>")
+
+    async def delete_update_message(self):
+        await self.message.delete()
 
     #Polls if Image is done each second
     async def poll(self):
         await asyncio.sleep(1)
         self.time_elapsed=time.time()-self.time_started
         response = requests.get(url=url+f"v2/generate/check/{self.id}").json()
-        self.ETA = response["wait_time"] + response["queue_position"]
-        print(f"poll_id {self.id} by {self.context.author.name} {response['wait_time']}")
+        self.ETA = response["wait_time"]
+        self.Queue = response["queue_position"]
+        #print(f"poll_id {self.id} by {self.context.author.name} {response['wait_time']}")
         if (self.time_started+self.time_elapsed)>self.time_started+2:
             await self.update_message()
         if(response['finished'] == 1):
@@ -85,17 +93,14 @@ class discord_horde_request:
     
     #Downloads image if it's done
     async def get_finished_image(self):
-        print(f"getting_finished_image: {self.id} by {self.context.author.name}")
-        self.filepath = settings["filepath"] + self.index + ".png"
-        print(self.filepath)
+        #print(f"getting_finished_image: {self.id} by {self.context.author.name}")
+        self.filepath = self.index + ".webp"
         returned_img=requests.get(url=url+f"v2/generate/status/{self.id}").json()['generations'][0]['img']
-        print("imgreturned")
         data = bytes(returned_img, "utf-8")
-        print("saved1")
         with open(self.filepath,'wb') as file:
             file.write(base64.b64decode(data))
-        print("saved2")
         await self.return_image()
+        await self.delete_update_message()
     
     #Sends back image over discord if it's done
     async def return_image(self):
@@ -103,8 +108,15 @@ class discord_horde_request:
         self.time_elapsed = time.time()-self.time_started
         file = discord.File(self.filepath, filename = self.filepath)
         await self.context.send(f"{self.context.author.name}'s image done in {round(self.time_elapsed)}s! with seed {self.payload['params']['seed']}" , file = file)
+        os.remove(self.filepath)
 
-
+@bot.command()
+async def status(ctx):
+    status_user = requests.get(url+"v2/find_user", headers = {"apikey": settings["apikey"]}).json()
+    status = requests.get(url+"v2/status/performance").json()
+    bars = round(status_user["kudos"]/7000)
+    bar = f"|{bars*'█'}{(20-bars)*'-'}|"
+    await ctx.send(f"> {bar}\n> Generations available: ~{round(status_user['kudos']/10)}\n> Current Queue: {status['queued_requests']}\n> Current Workers: {status['worker_count']}")
 
 @bot.command()
 async def create(ctx, *arg):
