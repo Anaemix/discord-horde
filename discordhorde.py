@@ -10,6 +10,7 @@ import json
 import createpayload
 import hordecommands
 import getinfo
+from helpmessages import help_create, help_models, help_setmodelglobal, help_setsamplerglobal, help_status
 
 url = "https://stablehorde.net/api/"
 
@@ -95,27 +96,32 @@ class discord_horde_request:
         os.remove(self.filepath)
 
 @bot.command()
-async def setsamplerglobal(ctx, arg):
+async def github(ctx):
+    message = getinfo.get_website()
+    await ctx.send(message)
+
+@bot.command()
+async def setsamplerglobal(ctx, arg, description=help_setsamplerglobal):
     message = await hordecommands.setsamplerglobal(arg.strip())
     await ctx.send(message)
 
 @bot.command()
-async def setmodelglobal(ctx, *arg):
+async def setmodelglobal(ctx, *arg, description=help_setmodelglobal):
     message = await hordecommands.setmodelglobal(list(arg))
     await ctx.send(message)
 
 @bot.command()
-async def models(ctx):
+async def models(ctx, description=help_models):
     modelsmessage = await getinfo.get_available_models()
     await ctx.send(modelsmessage)
 
 @bot.command()
-async def status(ctx):
+async def status(ctx, description=help_status):
     statusmessage = await getinfo.get_status(settings["apikey"])
     await ctx.send(statusmessage)
 
 @bot.command()
-async def create(ctx, *arg):
+async def create(ctx, *arg, description=help_create):
     obj = discord_horde_request(ctx, list(arg))
     task = asyncio.create_task(obj.generate())
     await task

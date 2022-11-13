@@ -10,7 +10,7 @@ def getheight(default:int, prompt:str):
     if(match == None): return default, prompt
     else: prompt = re.sub("-h \d* ", "", prompt)
     h:int = int(match.group(0).split(" ")[1])
-    h = ceil(h/64)*64
+    h = min([ceil(h/64)*64, 1024])
     return h, prompt
     
 def getwidth(default:int, prompt:str):
@@ -18,7 +18,7 @@ def getwidth(default:int, prompt:str):
     if(match == None): return default, prompt
     else: prompt = re.sub("-w \d* ", "", prompt)
     w:int = int(match.group(0).split(" ")[1])
-    w = ceil(w/64)*64
+    w = min([ceil(w/64)*64, 1024])
     return w, prompt
 
 def getcfg(default:int, prompt:str):

@@ -23,3 +23,8 @@ async def setsamplerglobal(arg: str) -> str:
             file.truncate()
             return f"Global sampler changed to '{arg}'."
     return f"Sampler not changed, available samplers are: {str(data['samplers'])}"
+
+def get_website()->str:
+    with open("settings.json", "r+") as file:
+        data = json.load(file)
+    return data["website"]
