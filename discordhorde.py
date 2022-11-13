@@ -7,6 +7,7 @@ import time
 import os
 import json
 
+import getinfo
 from parsecommand import parsecommand
 
 url = "https://stablehorde.net/api/"
@@ -113,12 +114,14 @@ class discord_horde_request:
 
 
 @bot.command()
+async def models(ctx):
+    modelsmessage = await getinfo.get_available_models()
+    await ctx.send(modelsmessage)
+
+@bot.command()
 async def status(ctx):
-    status_user = requests.get(url+"v2/find_user", headers = {"apikey": settings["apikey"]}).json()
-    status = requests.get(url+"v2/status/performance").json()
-    bars = round(status_user["kudos"]/7000)
-    bar = f"|{bars*'█'}{(20-bars)*'-'}|"
-    await ctx.send(f"> {bar}\n> Generations available: ~{round(status_user['kudos']/10)}\n> Current Queue: {status['queued_requests']}\n> Current Workers: {status['worker_count']}")
+    statusmessage = await getinfo.get_status(settings["apikey"])
+    await ctx.send(statusmessage)
 
 @bot.command()
 async def create(ctx, *arg):
