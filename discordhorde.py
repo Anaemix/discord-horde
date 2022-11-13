@@ -97,7 +97,7 @@ class discord_horde_request:
 
 @bot.command()
 async def github(ctx):
-    message = getinfo.get_website()
+    message = hordecommands.get_website()
     await ctx.send(message)
 
 @bot.command()
