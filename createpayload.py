@@ -31,7 +31,7 @@ def getcfg(default:int, prompt:str):
 
 def getseed(prompt:str):
     match = re.search("-seed (\d)* ", prompt)
-    if(match == None): return random.randint(10000), prompt
+    if(match == None): return random.randint(0,10000), prompt
     else: prompt = re.sub("-seed (\d)* ", "", prompt)
     s:int = int(match.group(0).split(" ")[1])
     return str(s), prompt
