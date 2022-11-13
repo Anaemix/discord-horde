@@ -7,8 +7,9 @@ import time
 import os
 import json
 
+import createpayload
+import hordecommands
 import getinfo
-from parsecommand import parsecommand
 
 url = "https://stablehorde.net/api/"
 
@@ -17,21 +18,10 @@ bot = commands.Bot(command_prefix='/')
 with open("settings.json", 'r') as file:
     settings = json.load(file)
 
-default_payload = {
-  "prompt": settings["defaultpayload"]["prompt"],
-  "params": {
-    "sampler_name": settings["defaultpayload"]["sampler_name"],
-    "cfg_scale": settings["defaultpayload"]["cfg_scale"],
-    "seed": "",
-    "height": settings["defaultpayload"]["height"],
-    "width": settings["defaultpayload"]["width"],
-    "steps": settings["defaultpayload"]["steps"],
-    "n": 1
-  },
-  "nsfw": settings["defaultpayload"]["nsfw"],
-  "trusted_workers": settings["defaultpayload"]["trusted_workers"],
-  "censor_nsfw": settings["defaultpayload"]["censor_nsfw"],
-}
+
+
+
+
 
 class discord_horde_request:
     ETA = "N/A"
@@ -39,26 +29,19 @@ class discord_horde_request:
     def __init__(self, context, promptlist):
         self.context = context
         self.promptlist = promptlist
-        self.payload = default_payload
+        self.payload = createpayload.create_payload(" ".join(promptlist))
         self.index = str(time.time()).replace(".","")
 
     #Requests generation process
     async def generate(self):
-        command = parsecommand(self.promptlist)
-        self.payload["prompt"]=command["prompt"]
-        self.payload['params']['steps']=command["step"]
-        self.payload['params']['seed']=command["seed"]
-        self.payload['params']['cfg_scale']=command["guidance"]
         self.api_key = settings["apikey"]
-        print(self.payload)
         try:
             response = requests.post(url=url+"v2/generate/async", json= self.payload, headers = {"apikey": self.api_key}).json()
-            print(response)
             self.id = response['id']
             await self.message_created()
             await self.poll()
         except:
-            print("failed to generate")
+            print("failed to generate:", response)
             return 1
 
     #Sends generating message
@@ -84,7 +67,7 @@ class discord_horde_request:
         response = requests.get(url=url+f"v2/generate/check/{self.id}").json()
         self.ETA = response["wait_time"]
         self.Queue = response["queue_position"]
-        #print(f"poll_id {self.id} by {self.context.author.name} {response['wait_time']}")
+
         if (self.time_started+self.time_elapsed)>self.time_started+2:
             await self.update_message()
         if(response['finished'] == 1):
@@ -94,7 +77,7 @@ class discord_horde_request:
     
     #Downloads image if it's done
     async def get_finished_image(self):
-        #print(f"getting_finished_image: {self.id} by {self.context.author.name}")
+    
         self.filepath = self.index + ".webp"
         returned_img=requests.get(url=url+f"v2/generate/status/{self.id}").json()['generations'][0]['img']
         data = bytes(returned_img, "utf-8")
@@ -111,7 +94,15 @@ class discord_horde_request:
         await self.context.send(f"{self.context.author.name}'s image done in {round(self.time_elapsed)}s! with seed {self.payload['params']['seed']}" , file = file)
         os.remove(self.filepath)
 
+@bot.command()
+async def setsamplerglobal(ctx, arg):
+    message = await hordecommands.setsamplerglobal(arg.strip())
+    await ctx.send(message)
 
+@bot.command()
+async def setmodelglobal(ctx, *arg):
+    message = await hordecommands.setmodelglobal(list(arg))
+    await ctx.send(message)
 
 @bot.command()
 async def models(ctx):
