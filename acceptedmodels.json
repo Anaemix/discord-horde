@@ -40,5 +40,83 @@
         "Description": "Model trained on DnD images and art, does not have a styleword so requires normal long prompts to get good intricate results.",
         "Website": "https://huggingface.co/0xJustin/Dungeons-and-Diffusion",
         "Keyword": ""
+    },
+    "-Trinart_Diffusion": {
+        "modelname": "trinart",
+        "Description": "Model trained on sfw anime images and art, does not have a styleword so requires normal long prompts to get good intricate results.",
+        "Website": "https://huggingface.co/naclbit/trinart_stable_diffusion_v2",
+        "Keyword": ""
+    },
+    "-Van_Gogh_Diffusion": {
+        "modelname": "Van Gogh Diffusion",
+        "Description": "Model trained on Van Gogh's style.",
+        "Website": "https://huggingface.co/dallinmackay/Van-Gogh-diffusion",
+        "Keyword": ", lvngvncnt"
+    },
+    "-Redshift_Diffusion": {
+        "modelname": "Redshift Diffusion",
+        "Description": "Model trained on Redshift style from Cinema4D.",
+        "Website": "https://huggingface.co/nitrosocke/redshift-diffusion",
+        "Keyword": ", redshift_style"
+    },
+    "-BubblyDubbly_Diffusion": {
+        "modelname": "BubblyDubbly",
+        "Description": "Model trained on soft 'bubbly' images.",
+        "Website": "https://huggingface.co/Marre-Barre/bubblydubbly",
+        "Keyword": ", art by bubblydubbly"
+    },
+    "-Clazy_Diffusion": {
+        "modelname": "Clazy",
+        "Description": "Model trained on clay art images.",
+        "Website": "https://huggingface.co/Signorlimone/Clazy",
+        "Keyword": ", clazy style"
+    },
+    "-Midjourney_Diffusion": {
+        "modelname": "Midjourney Diffusion",
+        "Description": "Model trained on Midjourney AI images",
+        "Website": "https://huggingface.co/prompthero/midjourney-v4-diffusion",
+        "Keyword": ", mdjrny-v4 style"
+    },
+    "-Colorbook_Diffusion": {
+        "modelname": "colorbook",
+        "Description": "Model trained on Colorbook/vector art style.",
+        "Website": "https://www.reddit.com/r/StableDiffusion/comments/yauj4y/coloring_book_model_my_first_publicly_released/",
+        "Keyword": ", in VARPJ1 Coloring Book Art style"
+    },
+    "-Papercut_Diffusion": {
+        "modelname": "Papercut Diffusion",
+        "Description": "Model trained on images of paperart style.",
+        "Website": "https://huggingface.co/Fictiverse/Stable_Diffusion_PaperCut_Model",
+        "Keyword": ", PaperCut"
+    },
+    "-Modern_Disney_Diffusion": {
+        "modelname": "mo-di-diffusion",
+        "Description": "Model trained on disney images from movies >2000.",
+        "Website": "https://huggingface.co/nitrosocke/mo-di-diffusion",
+        "Keyword": ", modern disney style"
+    },
+    "-Classic_Disney_Diffusion": {
+        "modelname": "Classic Animation Diffusion",
+        "Description": "Model trained on disney images from movies <2000.",
+        "Website": "https://huggingface.co/nitrosocke/classic-anim-diffusion",
+        "Keyword": ", classic disney style"
+    },
+    "-Cyberpunk_Anime_Diffusion": {
+        "modelname": "Cyberpunk Anime Diffusion",
+        "Description": "Model trained on cyberpunk inspired anime images, does not have a styleword so requires normal long prompts to get good intricate results.",
+        "Website": "https://huggingface.co/DGSpitzer/Cyberpunk-Anime-Diffusion",
+        "Keyword": ""
+    },
+    "-Robo_Diffusion": {
+        "modelname": "Robo-Diffusion",
+        "Description": "Model trained on robot images, does not have a styleword so requires normal long prompts to get good intricate results.",
+        "Website": "https://huggingface.co/nousr/robo-diffusion",
+        "Keyword": ""
+    },
+    "-Tron_Legacy_Diffusion": {
+        "modelname": "Tron Legacy Diffusion",
+        "Description": "Model trained on images from the legacy tron movie.",
+        "Website": "https://huggingface.co/dallinmackay/Tron-Legacy-diffusion",
+        "Keyword": ", trnlgcy"
     }
 }
