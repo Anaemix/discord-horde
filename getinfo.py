@@ -2,7 +2,7 @@ import requests
 import json
 import asyncio
 
-def update_modellist(models: str):
+def update_modellist(models: list):
     with open("settings.json", 'r+') as file:
         data = json.load(file)
         data["models"] = models
@@ -24,12 +24,16 @@ async def get_available_models() -> str:
     for worker in workers:
         models = models + worker["models"]
     totmodels = list(dict.fromkeys(models))
-    if("stable_diffusion_inpainting" in totmodels):
-        totmodels.remove("stable_diffusion_inpainting")
-    update_modellist(totmodels)
-    for i, mod in enumerate(totmodels):
-        totmodels[i] = f"{'█' * models.count(mod)} {totmodels[i]}"
-    return "Models available: \n" + '\n'.join(totmodels)
+    with open("acceptedmodels.json", 'r+') as file:
+        data = json.load(file)
+    acceptedmodels = []
+    for i in data:
+        if(data[i]['modelname'] in totmodels):
+            acceptedmodels.append(i)
+    update_modellist(acceptedmodels)
+    for i, mod in enumerate(acceptedmodels):
+        acceptedmodels[i] = f"{'█' * models.count(data[mod]['modelname'])} {acceptedmodels[i]}"
+    return "Models available: \n" + '\n'.join(acceptedmodels)
 
 async def get_status(api: str) -> str:
     with open("settings.json", 'r') as file:
@@ -41,3 +45,4 @@ async def get_status(api: str) -> str:
     bars = round(status_user["kudos"]/7000)
     bar = f"|{bars*'█'}{(20-bars)*'-'}|"
     return f"> {currentmodel}\n> {currentsampler}\n> {bar}\n> Generations available: ~{round(status_user['kudos']/10)}\n> Current Queue: {status['queued_requests']}\n> Current Workers: {status['worker_count']}"
+

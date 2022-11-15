@@ -15,3 +15,8 @@ help_setmodelglobal="""Changes the default sampler, do /setmodelglobal "model"
 to get all the available models do /models"""
 
 help_models = """Returns all the available models"""
+
+help_github = """Returns link to github for this bot"""
+
+help_info = """Returns information about a model
+Example: /info -Microworlds"""

@@ -1,0 +1,44 @@
+{
+    "-Stable_Diffusion": {
+        "modelname": "stable_diffusion",
+        "Description": "Default model Stable diffusion 1.4",
+        "Website": "https://huggingface.co/CompVis/stable-diffusion-v1-4",
+        "Keyword": ""
+    },
+    "-Microworlds": {
+        "modelname": "Microworlds",
+        "Description": "Model to create isometric 'micro worlds', look at website to find out more.",
+        "Website": "https://publicprompts.art/microworlds-dreambooth-model/",
+        "Keyword": ", microworld render style"
+    },
+    "-Arcane_Diffusion": {
+        "modelname": "Arcane Diffusion",
+        "Description": "Model based on the style in Arcane the TV series.",
+        "Website": "https://huggingface.co/nitrosocke/Arcane-Diffusion",
+        "Keyword": ", arcane style"
+    },
+    "-Elden_Ring_Diffusion": {
+        "modelname": "Elden Ring Diffusion",
+        "Description": "Model based on the style in Elden Ring the computer game.",
+        "Website": "https://huggingface.co/nitrosocke/elden-ring-diffusion",
+        "Keyword": ", elden ring style"
+    },
+    "-Archer_Diffusion": {
+        "modelname": "Archer Diffusion",
+        "Description": "Model based on the style in Archer the TV series.",
+        "Website": "https://huggingface.co/nitrosocke/archer-diffusion",
+        "Keyword": ", archer style"
+    },
+    "-Borderlands_Diffusion": {
+        "modelname": "Borderlands",
+        "Description": "Model based on the style in Borderlands the computer game.",
+        "Website": "https://publicprompts.art/borderlands-dreambooth-model/",
+        "Keyword": ", borderlands"
+    },
+    "-Dnd_Diffusion": {
+        "modelname": "Dungeons and Diffusion",
+        "Description": "Model trained on DnD images and art, does not have a styleword so requires normal long prompts to get good intricate results.",
+        "Website": "https://huggingface.co/0xJustin/Dungeons-and-Diffusion",
+        "Keyword": ""
+    }
+}

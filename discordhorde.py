@@ -10,7 +10,7 @@ import json
 import createpayload
 import hordecommands
 import getinfo
-from helpmessages import help_create, help_models, help_setmodelglobal, help_setsamplerglobal, help_status
+from helpmessages import *
 
 url = "https://stablehorde.net/api/"
 
@@ -96,7 +96,12 @@ class discord_horde_request:
         os.remove(self.filepath)
 
 @bot.command()
-async def github(ctx):
+async def info(ctx, arg, description=help_info):
+    message = hordecommands.info_model(arg)
+    await ctx.send(message)
+
+@bot.command()
+async def github(ctx, description=help_github):
     message = hordecommands.get_website()
     await ctx.send(message)
 
@@ -128,8 +133,9 @@ async def create(ctx, *arg, description=help_create):
     
 @bot.command()
 async def reboot(ctx):
-    await ctx.send("Restarting bot... ")
-    os.system("sudo shutdown -r now")
+    await ctx.send("currently disabled")
+    #await ctx.send("Restarting bot... ")
+    #os.system("sudo shutdown -r now")
 
 if __name__ == "__main__":
     bot.run(settings["discord"])

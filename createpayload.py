@@ -45,11 +45,15 @@ def getsteps(default:int, prompt:str):
     return s, prompt
 
 def getmodel(default:str, prompt:str):
-    match = re.search("-model \[.*\] ", prompt)
-    if(match == None): return default, prompt
-    else: prompt = re.sub("-model \[.*\] ", "", prompt)
-    s:list = [" ".join(match.group(0).split(" ")[1:]).strip()[1:-1]]
-    return s, prompt
+    with open("acceptedmodels.json", 'r') as file:
+        data = json.load(file)
+    for i in data:
+        if(re.search(f"{i} ", prompt)):
+            prompt = re.sub(f"{i} ", "", prompt)
+            return [data[i]["modelname"]], prompt.strip() + data[i]["Keyword"]
+    with open("settings.json", 'r') as file:
+        settings = json.load(file)
+    return default, (prompt+settings["keyword"]).strip()
 
 def create_payload(prompt: str) -> dict:
     prompt = prompt + " "
@@ -59,8 +63,7 @@ def create_payload(prompt: str) -> dict:
     payload["params"]["cfg_scale"], prompt = getcfg(payload["params"]["cfg_scale"], prompt)
     payload["params"]["seed"], prompt = getseed(prompt)
     payload["params"]["steps"], prompt = getsteps(payload["params"]["steps"], prompt)
-    payload["models"], prompt = getmodel(payload["models"], prompt)
+    payload["models"], prompt = getmodel(payload["models"], prompt) #leave this last
     payload["prompt"] = prompt
     return payload
-
 
