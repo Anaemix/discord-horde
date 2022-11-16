@@ -3,120 +3,160 @@
         "modelname": "stable_diffusion",
         "Description": "Default model Stable diffusion 1.4",
         "Website": "https://huggingface.co/CompVis/stable-diffusion-v1-4",
-        "Keyword": ""
+        "Keyword": "",
+        "reaction": "🦖",
+        "reactionname": ":t_rex:"
     },
     "-Microworlds": {
         "modelname": "Microworlds",
         "Description": "Model to create isometric 'micro worlds', look at website to find out more.",
         "Website": "https://publicprompts.art/microworlds-dreambooth-model/",
-        "Keyword": ", microworld render style"
+        "Keyword": ", microworld render style",
+        "reaction": "🏜️",
+        "reactionname": ":desert:"
     },
     "-Arcane_Diffusion": {
         "modelname": "Arcane Diffusion",
         "Description": "Model based on the style in Arcane the TV series.",
         "Website": "https://huggingface.co/nitrosocke/Arcane-Diffusion",
-        "Keyword": ", arcane style"
+        "Keyword": ", arcane style",
+        "reaction": "🧑‍🎤",
+        "reactionname": ":singer:"
     },
     "-Elden_Ring_Diffusion": {
         "modelname": "Elden Ring Diffusion",
         "Description": "Model based on the style in Elden Ring the computer game.",
         "Website": "https://huggingface.co/nitrosocke/elden-ring-diffusion",
-        "Keyword": ", elden ring style"
+        "Keyword": ", elden ring style",
+        "reaction": "⚔️",
+        "reactionname": ":crossed_swords:"
     },
     "-Archer_Diffusion": {
         "modelname": "Archer Diffusion",
         "Description": "Model based on the style in Archer the TV series.",
         "Website": "https://huggingface.co/nitrosocke/archer-diffusion",
-        "Keyword": ", archer style"
+        "Keyword": ", archer style",
+        "reaction": "🏹",
+        "reactionname": ":bow_and_arrow:"
     },
     "-Borderlands_Diffusion": {
         "modelname": "Borderlands",
         "Description": "Model based on the style in Borderlands the computer game.",
         "Website": "https://publicprompts.art/borderlands-dreambooth-model/",
-        "Keyword": ", borderlands"
+        "Keyword": ", borderlands",
+        "reaction": "🎮",
+        "reactionname": ":video_game:"
     },
     "-Dnd_Diffusion": {
         "modelname": "Dungeons and Diffusion",
         "Description": "Model trained on DnD images and art, does not have a styleword so requires normal long prompts to get good intricate results.",
         "Website": "https://huggingface.co/0xJustin/Dungeons-and-Diffusion",
-        "Keyword": ""
+        "Keyword": "",
+        "reaction": "🧝‍♀️",
+        "reactionname": ":woman_elf:"
     },
     "-Trinart_Diffusion": {
         "modelname": "trinart",
         "Description": "Model trained on sfw anime images and art, does not have a styleword so requires normal long prompts to get good intricate results.",
         "Website": "https://huggingface.co/naclbit/trinart_stable_diffusion_v2",
-        "Keyword": ""
+        "Keyword": "",
+        "reaction": "🐯",
+        "reactionname": ":tiger:"
     },
     "-Van_Gogh_Diffusion": {
         "modelname": "Van Gogh Diffusion",
         "Description": "Model trained on Van Gogh's style.",
         "Website": "https://huggingface.co/dallinmackay/Van-Gogh-diffusion",
-        "Keyword": ", lvngvncnt"
+        "Keyword": ", lvngvncnt",
+        "reaction": "🖌️",
+        "reactionname": ":paintbrush:"
     },
     "-Redshift_Diffusion": {
         "modelname": "Redshift Diffusion",
         "Description": "Model trained on Redshift style from Cinema4D.",
         "Website": "https://huggingface.co/nitrosocke/redshift-diffusion",
-        "Keyword": ", redshift_style"
+        "Keyword": ", redshift_style",
+        "reaction": "⭕",
+        "reactionname": ":o:"
     },
     "-BubblyDubbly_Diffusion": {
         "modelname": "BubblyDubbly",
         "Description": "Model trained on soft 'bubbly' images.",
         "Website": "https://huggingface.co/Marre-Barre/bubblydubbly",
-        "Keyword": ", art by bubblydubbly"
+        "Keyword": ", art by bubblydubbly",
+        "reaction": "🍄",
+        "reactionname": ":mushroom:"
     },
     "-Clazy_Diffusion": {
         "modelname": "Clazy",
         "Description": "Model trained on clay art images.",
         "Website": "https://huggingface.co/Signorlimone/Clazy",
-        "Keyword": ", clazy style"
+        "Keyword": ", clazy style",
+        "reaction": "🧱",
+        "reactionname": ":bricks:"
     },
     "-Midjourney_Diffusion": {
         "modelname": "Midjourney Diffusion",
         "Description": "Model trained on Midjourney AI images",
         "Website": "https://huggingface.co/prompthero/midjourney-v4-diffusion",
-        "Keyword": ", mdjrny-v4 style"
+        "Keyword": ", mdjrny-v4 style",
+        "reaction": "🦕",
+        "reactionname": ":sauropod:"
     },
     "-Colorbook_Diffusion": {
         "modelname": "colorbook",
         "Description": "Model trained on Colorbook/vector art style.",
         "Website": "https://www.reddit.com/r/StableDiffusion/comments/yauj4y/coloring_book_model_my_first_publicly_released/",
-        "Keyword": ", in VARPJ1 Coloring Book Art style"
+        "Keyword": ", in VARPJ1 Coloring Book Art style",
+        "reaction": "🖍️",
+        "reactionname": ":crayon:"
     },
     "-Papercut_Diffusion": {
         "modelname": "Papercut Diffusion",
         "Description": "Model trained on images of paperart style.",
         "Website": "https://huggingface.co/Fictiverse/Stable_Diffusion_PaperCut_Model",
-        "Keyword": ", PaperCut"
+        "Keyword": ", PaperCut",
+        "reaction": "📜",
+        "reactionname": ":scroll:"
     },
     "-Modern_Disney_Diffusion": {
         "modelname": "mo-di-diffusion",
         "Description": "Model trained on disney images from movies >2000.",
         "Website": "https://huggingface.co/nitrosocke/mo-di-diffusion",
-        "Keyword": ", modern disney style"
+        "Keyword": ", modern disney style",
+        "reaction": "🤴",
+        "reactionname": ":prince:"
     },
     "-Classic_Disney_Diffusion": {
         "modelname": "Classic Animation Diffusion",
         "Description": "Model trained on disney images from movies <2000.",
         "Website": "https://huggingface.co/nitrosocke/classic-anim-diffusion",
-        "Keyword": ", classic disney style"
+        "Keyword": ", classic disney style",
+        "reaction": "👸",
+        "reactionname": ":princess:"
     },
     "-Cyberpunk_Anime_Diffusion": {
         "modelname": "Cyberpunk Anime Diffusion",
         "Description": "Model trained on cyberpunk inspired anime images, does not have a styleword so requires normal long prompts to get good intricate results.",
         "Website": "https://huggingface.co/DGSpitzer/Cyberpunk-Anime-Diffusion",
-        "Keyword": ""
+        "Keyword": "",
+        "reaction": "㊗️",
+        "reactionname": ":congratulations:"
     },
     "-Robo_Diffusion": {
         "modelname": "Robo-Diffusion",
         "Description": "Model trained on robot images, does not have a styleword so requires normal long prompts to get good intricate results.",
         "Website": "https://huggingface.co/nousr/robo-diffusion",
-        "Keyword": ""
+        "Keyword": "",
+        "reaction": "🤖",
+        "reactionname": ":robot:"
     },
     "-Tron_Legacy_Diffusion": {
         "modelname": "Tron Legacy Diffusion",
         "Description": "Model trained on images from the legacy tron movie.",
         "Website": "https://huggingface.co/dallinmackay/Tron-Legacy-diffusion",
-        "Keyword": ", trnlgcy"
+        "Keyword": ", trnlgcy",
+        "reaction": "🏍️",
+        "reactionname": ":motorcycle:"
     }
 }

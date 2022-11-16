@@ -36,6 +36,13 @@ def getseed(prompt:str):
     s:int = int(match.group(0).split(" ")[1])
     return str(s), prompt
 
+def getsampler(default:str, prompt:str):
+    match = re.search("-sampler (\d)* ", prompt)
+    if(match == None): return default, prompt
+    else: prompt = re.sub("-sampler (\d)* ", "", prompt)
+    s = match.group(0).split(" ")[1]
+    return s, prompt
+
 def getsteps(default:int, prompt:str):
     match = re.search("-steps (\d)* ", prompt)
     if(match == None): return default, prompt
@@ -45,7 +52,7 @@ def getsteps(default:int, prompt:str):
     return s, prompt
 
 def getmodel(default:str, prompt:str):
-    with open("acceptedmodels.json", 'r') as file:
+    with open("acceptedmodels.json", 'r', encoding='utf-8') as file:
         data = json.load(file)
     for i in data:
         if(re.search(f"{i} ", prompt)):
@@ -53,9 +60,26 @@ def getmodel(default:str, prompt:str):
             return [data[i]["modelname"]], prompt.strip() + data[i]["Keyword"]
     with open("settings.json", 'r') as file:
         settings = json.load(file)
-    return default, (prompt+settings["keyword"]).strip()
+    return default, prompt.strip()
 
-def create_payload(prompt: str) -> dict:
+def add_keyword(payload:dict):
+    with open("acceptedmodels.json", "r", encoding='utf-8') as file:
+        data = json.load(file)
+    for i in data:
+        if(payload["models"][0] == data[i]['modelname']):
+            payload["prompt"] += data[i]['Keyword']
+            return
+
+def create_payload(prompt: str, id: str) -> dict:
+    with open("users.json", "r", encoding="utf-8") as file:
+        users = json.load(file)
+    if id in users:
+        default_model = [users[id]["model"]]
+        default_sampler = users[id]["sampler_name"]
+    else:
+        default_model = payload["models"]
+        default_sampler = payload["params"]["steps"]
+
     prompt = prompt + " "
     payload:dict = json.load(open("settings.json", "r"))["defaultpayload"]
     payload["params"]["height"], prompt = getheight(payload["params"]["height"], prompt)
@@ -63,7 +87,9 @@ def create_payload(prompt: str) -> dict:
     payload["params"]["cfg_scale"], prompt = getcfg(payload["params"]["cfg_scale"], prompt)
     payload["params"]["seed"], prompt = getseed(prompt)
     payload["params"]["steps"], prompt = getsteps(payload["params"]["steps"], prompt)
-    payload["models"], prompt = getmodel(payload["models"], prompt) #leave this last
+    payload["params"]["sampler_name"], prompt = getsampler(default_sampler, prompt)
+    payload["models"], prompt = getmodel(default_model, prompt)
     payload["prompt"] = prompt
+    add_keyword(payload)
     return payload
 

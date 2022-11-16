@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.utils import get
 import asyncio
 import requests
 import base64
@@ -22,7 +23,7 @@ with open("settings.json", 'r') as file:
 
 
 
-
+global model_message
 
 class discord_horde_request:
     ETA = "N/A"
@@ -30,13 +31,21 @@ class discord_horde_request:
     def __init__(self, context, promptlist):
         self.context = context
         self.promptlist = promptlist
-        self.payload = createpayload.create_payload(" ".join(promptlist))
+        self.payload = createpayload.create_payload(" ".join(promptlist), str(context.message.author.id))
         self.index = str(time.time()).replace(".","")
+        try:
+            with open("users.json", 'r', encoding='utf-8') as file:
+                users = json.load(file)
+            if(users[str(context.message.author.id)]['log_prompts']):
+                self.log_prompt(self)
+        except:
+            pass
 
     #Requests generation process
     async def generate(self):
         self.api_key = settings["apikey"]
         try:
+            print(self.payload)
             response = requests.post(url=url+"v2/generate/async", json= self.payload, headers = {"apikey": self.api_key}).json()
             self.id = response['id']
             await self.message_created()
@@ -95,6 +104,52 @@ class discord_horde_request:
         await self.context.send(f"{self.context.author.name}'s image done in {round(self.time_elapsed)}s! with seed {self.payload['params']['seed']}" , file = file)
         os.remove(self.filepath)
 
+    def log_prompt(self):
+        with open(f"logs/{str(self.context.message.author.id)}.txt", 'a', encoding='utf-8') as file:
+            file.write(f"{self.payload}\n")
+
+@bot.event
+async def on_ready():
+    channel = bot.get_channel(1015193537228312576)
+    message = await getinfo.get_available_models()
+    try:
+        msg = await channel.fetch_message(settings['model_message'])
+        await msg.delete()
+    except:
+        pass
+    msg = await channel.send(message)
+    with open("settings.json", 'r+') as file:
+        data = json.load(file)
+        data["model_message"] = msg.id
+        file.seek(0)
+        json.dump(data, file, indent=4)
+        file.truncate()
+    with open("acceptedmodels.json", 'r+', encoding='utf-8') as file:
+        models = json.load(file)
+    for model in models:
+        #print(models[model]["reaction"])
+        await msg.add_reaction(models[model]["reaction"])
+    global model_message
+    model_message = msg
+    
+
+@bot.event
+async def on_reaction_add(reaction, user):
+    if not user.bot and reaction.message == model_message:
+        with open("acceptedmodels.json", 'r+', encoding='utf-8') as file:
+            models = json.load(file)
+        
+        for i in models:
+            if(reaction.emoji == models[i]["reaction"]):
+                hordecommands.set_user(str(user.id), user.name, model=models[i]["modelname"])
+                await reaction.message.channel.send(f"{user.name}'s model is set to {models[i]['modelname']}")
+                break
+        
+"""
+@bot.command()
+async def test(ctx, arg):
+    await ctx.send(str(ctx.message.author.id))
+"""
 @bot.command()
 async def info(ctx, arg, description=help_info):
     message = hordecommands.info_model(arg)
@@ -123,7 +178,7 @@ async def models(ctx, description=help_models):
 @bot.command()
 async def status(ctx, description=help_status):
     statusmessage = await getinfo.get_status(settings["apikey"])
-    await ctx.send(statusmessage)
+    last_status = await ctx.send(statusmessage)
 
 @bot.command()
 async def create(ctx, *arg, description=help_create):

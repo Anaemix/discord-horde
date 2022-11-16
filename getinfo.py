@@ -24,7 +24,7 @@ async def get_available_models() -> str:
     for worker in workers:
         models = models + worker["models"]
     totmodels = list(dict.fromkeys(models))
-    with open("acceptedmodels.json", 'r+') as file:
+    with open("acceptedmodels.json", 'r+', encoding='utf-8') as file:
         data = json.load(file)
     acceptedmodels = []
     for i in data:
@@ -32,7 +32,7 @@ async def get_available_models() -> str:
             acceptedmodels.append(i)
     update_modellist(acceptedmodels)
     for i, mod in enumerate(acceptedmodels):
-        acceptedmodels[i] = f"{'█' * models.count(data[mod]['modelname'])} {acceptedmodels[i]}"
+        acceptedmodels[i] = f"{'█' * models.count(data[mod]['modelname'])} {acceptedmodels[i]} {data[mod]['reactionname']}"
     return "Models available: \n" + '\n'.join(acceptedmodels)
 
 async def get_status(api: str) -> str:

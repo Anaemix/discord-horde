@@ -1,0 +1,9 @@
+{
+    "defaultuser": {
+        "name": "",
+        "sampler_name": "k_euler_a",
+        "model": "stable_diffusion",
+        "nsfw": true,
+        "log_prompts": true
+    }
+}

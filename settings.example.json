@@ -1,0 +1,67 @@
+{
+    "discord": "",
+    "filepath": "",
+    "apikey": "",
+    "defaultpayload": {
+        "prompt": "horde of discord bots",
+        "params": {
+            "sampler_name": "k_euler_a",
+            "cfg_scale": 7,
+            "denoising_strength": 0.75,
+            "seed": "string",
+            "height": 512,
+            "width": 512,
+            "use_gfpgan": true,
+            "karras": false,
+            "use_real_esrgan": false,
+            "use_ldsr": false,
+            "use_upscaling": false,
+            "steps": 50,
+            "n": 1
+        },
+        "nsfw": true,
+        "trusted_workers": false,
+        "censor_nsfw": false,
+        "models": [
+            "stable_diffusion"
+        ]
+    },
+    "discordboturl": "",
+    "samplers": [
+        "k_lms",
+        "k_heun",
+        "k_euler",
+        "k_euler_a",
+        "k_dpm_2",
+        "k_dpm_2_a",
+        "k_dpm_fast",
+        "k_dpm_adaptive",
+        "k_dpmpp_2s_a",
+        "k_dpmpp_2m"
+    ],
+    "keyword": ", archer style",
+    "models": [
+        "-Stable_Diffusion",
+        "-Microworlds",
+        "-Arcane_Diffusion",
+        "-Elden_Ring_Diffusion",
+        "-Archer_Diffusion",
+        "-Borderlands_Diffusion",
+        "-Dnd_Diffusion",
+        "-Trinart_Diffusion",
+        "-Van_Gogh_Diffusion",
+        "-Redshift_Diffusion",
+        "-BubblyDubbly_Diffusion",
+        "-Clazy_Diffusion",
+        "-Midjourney_Diffusion",
+        "-Colorbook_Diffusion",
+        "-Papercut_Diffusion",
+        "-Modern_Disney_Diffusion",
+        "-Classic_Disney_Diffusion",
+        "-Cyberpunk_Anime_Diffusion",
+        "-Robo_Diffusion",
+        "-Tron_Legacy_Diffusion"
+    ],
+    "website": "https://github.com/Anaemix/discord-horde",
+    "model_message": 1042521656050057286
+}
