@@ -1,0 +1,22 @@
+{
+    "prompt": "horde of discord bots",
+    "params": {
+        "sampler_name": "k_euler_a",
+        "cfg_scale": 7,
+        "denoising_strength": 0.75,
+        "seed": "string",
+        "height": 512,
+        "width": 512,
+        "use_gfpgan": true,
+        "karras": false,
+        "use_real_esrgan": false,
+        "use_ldsr": false,
+        "use_upscaling": false,
+        "steps": 20,
+        "n": 1
+    },
+    "nsfw": true,
+    "trusted_workers": false,
+    "censor_nsfw": false,
+    "model": "stable_diffusion"
+}

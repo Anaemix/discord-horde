@@ -5,6 +5,41 @@ import random
 from math import ceil
 
 
+
+
+
+def set_style(payload:dict, prompt:str):
+    styles = json.load(open('styles.json','r'))
+    style = prompt.split('style:')[1].strip()
+    prompt = prompt.split('style:')[0].strip()
+    if( "###" in prompt):
+        p = prompt.split("###")[0]
+        np = prompt.split("###")[1]
+    else:
+        p = prompt
+        np = ""
+    if(style in styles):
+        for i in styles[style]:
+            if i == "prompt":
+                payload[i] = styles[style][i].replace("{p}", p).replace("{np}", "###"+np)
+            elif i == "model":
+                payload[i] = styles[style][i]
+            else:
+                payload['params'][i] = styles[style][i]
+    return payload
+
+
+
+
+def create_payload(prompt: str) -> dict:
+    payload:dict = json.load(open("defaultpayload.json", "r"))
+    if('style:' in prompt):
+        payload = set_style(payload, prompt)
+    else:
+        payload['prompt'] = prompt
+    return payload
+
+
 def getheight(default:int, prompt:str):
     match = re.search("-h \d* ", prompt)
     if(match == None): return default, prompt
@@ -70,7 +105,7 @@ def add_keyword(payload:dict):
             payload["prompt"] += data[i]['Keyword']
             return
 
-def create_payload(prompt: str, id: str) -> dict:
+"""def create_payload(prompt: str, id: str) -> dict:
     with open("users.json", "r", encoding="utf-8") as file:
         users = json.load(file)
     if id in users:
@@ -88,8 +123,11 @@ def create_payload(prompt: str, id: str) -> dict:
     payload["params"]["seed"], prompt = getseed(prompt)
     payload["params"]["steps"], prompt = getsteps(payload["params"]["steps"], prompt)
     payload["params"]["sampler_name"], prompt = getsampler(default_sampler, prompt)
+    if('style:' in prompt):
+        payload = set_style(prompt)
     payload["models"], prompt = getmodel(default_model, prompt)
     payload["prompt"] = prompt
     add_keyword(payload)
     return payload
 
+"""

@@ -38,8 +38,8 @@ async def get_available_models() -> str:
 async def get_status(api: str) -> str:
     with open("settings.json", 'r') as file:
         data = json.load(file)
-    currentmodel = f"Default model: {data['defaultpayload']['models'][0]}"
-    currentsampler = f"Default sampler: {data['defaultpayload']['params']['sampler_name']}"
+    currentmodel ="" #f"Default model: {data['defaultpayload']['models'][0]}"
+    currentsampler = "" #f"Default sampler: {data['defaultpayload']['params']['sampler_name']}"
     status_user = requests.get("https://stablehorde.net/api/v2/find_user", headers = {"apikey": api}).json()
     status = requests.get("https://stablehorde.net/api/v2/status/performance").json()
     bars = round(status_user["kudos"]/7000)
